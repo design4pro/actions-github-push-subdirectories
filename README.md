@@ -2,7 +2,7 @@
 
 GitHub Action to publish subdirectories to separate GitHub repositories.
 
-### Why?
+## Why?
 
 When building Gatsby Themes with a monorepo it's common to need to
 be able to develop your corresponding starters in the same repo as
@@ -30,11 +30,13 @@ jobs:
 
 The `GITHUB_TOKEN` will automatically be defined, the `GH_TOKEN` needs to be set in the `Secrets` section of your repository options. You can retrieve the `GH_TOKEN` [here](https://github.com/settings/tokens) (set the `repo` permission).
 
-The action accepts three arguments - the first two are mandatory, the third (new repo name) and four (GitHub email) are optional.
+The action accepts three arguments - the first two are mandatory, the third (key from `package.json`), four (GitHub email) and five branch name, are optional.
 
-1. Name of the folder that contains your examples. Even if you only have one example currently it also should be placed inside its own folder (e.g. `design4pro/foo-bar`) as the script will read all folders inside the examples.
+1. Name of the folder that contains your examples. Even if you only have one example currently it also should be placed inside its own folder (e.g. `starters/foo-bar`) as the script will read all folders inside the examples.
 2. GitHub username
 3. Repository name of the respective example. By default the `name` key from the example's `package.json` is used, e.g. the `name` of your example is `gatsby-starter-foobar`, then the script will try to push to `github.com/USERNAME/gatsby-starter-foobar`.
+4. Branch name (optional) - `main` default
+5. GitHub email (optional)
 
 ### Custom starter names
 
@@ -42,16 +44,12 @@ You could define the key `starter-name` in your example's `package.json`, like:
 
 ```json
 {
-  "starter-name": "gatsby-starter-custom-foobar",
+  "starter-name": "gatsby-starter-foobar",
 }
 ```
 
 Use the action with the third argument now:
 
 ```yml
-args: starters design4pro starter-name
+args: starters design4pro starter-name master
 ```
-
-## Related
-
-This code is adapted and modified from [Gatsby core](https://github.com/gatsbyjs/gatsby/blob/8933ca9b3bf2c9b4fd580dd437d8695c3be705b7/scripts/clone-and-validate.sh).
